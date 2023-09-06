@@ -1,51 +1,86 @@
-import { set } from 'animejs';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
 
 const apiPage = () => {
 
-  const [location, setLocation] = useState([]); //useState hook to initialize the state to an empty array
+  // const [location, setLocation] = useState([]); //useState hook to initialize the state to an empty array
+  const [geoData, setGeoData] = useState([]); //useState hook to initialize the state to an empty array
   const [weatherData, setWeatherData] = useState([]); //useState hook to initialize the state to an empty array
   
-  useEffect(() => {
-    const getData = async () => {
+    const getData = async (location) => {
       const geoKey = '234979e2ff9e423095e4b2c869c1c97b'; //Move this to secure location
-      const travelLocation = 'Marrakesh';
+      const weatherKey = 'd9e3acc582b222c6021692be631852c5'; //Move this to secure location
+      const travelLocation = location;
+      
       const query = await fetch('https://api.geoapify.com/v1/geocode/search?text='+ travelLocation +
       "&limit=1&format=json&apiKey=" +
       geoKey);
       const response = await query.json();
       console.log(response);
-      setWeatherData(response.results);
-    }
-    getData();
-  
-  }, []);
+      setGeoData(response.results);
+
+      const IPLat = "34.337306";
+      const IPLon = "-118.6681779";
+      const weatherQuery = await fetch('"https://api.openweathermap.org/data/2.5/weather?lat=' + IPLat + "&lon=" + IPLon + "&appid=" + weatherKey)
+      const weatherResponse = await weatherQuery.json();
+      console.log(weatherResponse);
+      setWeatherData(weatherResponse.results);
+    };
+    
   return(
     <>
+    <div className="w-1/2 m-16 xl:w-2/5 justify-center overflow-y-hidden">
+      <h1 className="text-xl">test page for API Data</h1>
 
- <h1>test page for API Data</h1>
+      <h4>Click a button to test the GeoLocation API</h4> 
+      <button onClick={() => getData("New York")}
+      className="bg-pink-500 hover:bg-pink-400 text-white font-bold py-2 my-4 mx-4 px-4 border-b-4 border-pink-700 hover:border-pink-500 rounded">
+      New York
+      </button>
 
- <h4>Results go below here</h4> 
+      <button onClick={() => getData("Los Angeles")}      
+      className="bg-green-500 hover:bg-green-400 text-white font-bold py-2 my-4 mx-4 px-4 border-b-4 border-green-700 hover:border-green-500 rounded">
+      Los Angeles
+      </button>
+
+      <button onClick={() => getData("Memphis")}      
+      className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 my-4 mx-4 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+        Memphis
+      </button>
+    </div>
+
+  <div className="flex flex-col w-full m-16 xl:w-2/5 justify-center overflow-y-hidden">
     
-  <div className="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden">
+{/* Geo Data API Call */}
   {
-  weatherData && weatherData.length && weatherData.map((result, i) => {
+   geoData && geoData.length && geoData.map((result, i) => {
     return(
       <div key={i}>
-        <h4 id="city">{result.city}</h4>
-        <h4 id="country">{result.country}</h4>
-        <h4 id="Timezone">{result.timezone.name}</h4>
+        <h4 id="city">City = <span className='font-bold'>{result.city}</span></h4>
+        <h4 id="country">Country = <span className='font-bold'>{result.country}</span></h4>
+        <h4 id="Timezone">Timezone = <span className='font-bold'>{result.timezone.name}</span></h4>
       </div>
     )
     })
   }
+{/* Weather Data API Call */}
+  {/* {
+    weatherData && weatherData.length && weatherData.map((weatherResult, i) =>{
+      return(
+        <div key={i}>
+          <h4 id="rain">rain = <span className='font-bold'>{weatherResult.city}</span></h4>
+          <h4 id="snow">snow = <span className='font-bold'>{weatherResult.country}</span></h4>
+          <h4 id="other">other = <span className='font-bold'>{weatherResult.timezone.name}</span></h4>
+        </div>
+      )
+      }
+  } */}
   <Link href="/demo">
   <a href="/demo"
-      className="px-4 md:px-8 py-2 md:py-3 rounded-full bg-blue-400 text-white font-bold uppercase border-blue-500 border hover:bg-blue-600"
+      className="px-4 md:px-8 mx-auto my-4 py-2 md:py-3 text-center rounded-full bg-green-500 text-white font-bold uppercase border-green-600 border hover:bg-green-700"
       >
-      Go back to Animation Demo Page        
+      Go back to Animation Demo Page    
       
     </a>
   </Link>
@@ -55,6 +90,4 @@ const apiPage = () => {
   )
 };
 
-  
   export default apiPage;
-  
