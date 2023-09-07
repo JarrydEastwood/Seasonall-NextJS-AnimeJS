@@ -1,16 +1,15 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import Weather from "./Weather"
 
 
 const apiPage = () => {
 
   // const [location, setLocation] = useState([]); //useState hook to initialize the state to an empty array
   const [geoData, setGeoData] = useState([]); //useState hook to initialize the state to an empty array
-  const [weatherData, setWeatherData] = useState([]); //useState hook to initialize the state to an empty array
-  
+
     const getData = async (location) => {
       const geoKey = '234979e2ff9e423095e4b2c869c1c97b'; //Move this to secure location
-      const weatherKey = 'd9e3acc582b222c6021692be631852c5'; //Move this to secure location
       const travelLocation = location;
       
       const query = await fetch('https://api.geoapify.com/v1/geocode/search?text='+ travelLocation +
@@ -19,13 +18,6 @@ const apiPage = () => {
       const response = await query.json();
       console.log(response);
       setGeoData(response.results);
-
-      const IPLat = "34.337306";
-      const IPLon = "-118.6681779";
-      const weatherQuery = await fetch('"https://api.openweathermap.org/data/2.5/weather?lat=' + IPLat + "&lon=" + IPLon + "&appid=" + weatherKey)
-      const weatherResponse = await weatherQuery.json();
-      console.log(weatherResponse);
-      setWeatherData(weatherResponse.results);
     };
     
   return(
@@ -54,28 +46,22 @@ const apiPage = () => {
     
 {/* Geo Data API Call */}
   {
-   geoData && geoData.length && geoData.map((result, i) => {
+    
+   geoData && geoData.length && geoData.map((result, i, weatherResult, v) => {
     return(
-      <div key={i}>
-        <h4 id="city">City = <span className='font-bold'>{result.city}</span></h4>
-        <h4 id="country">Country = <span className='font-bold'>{result.country}</span></h4>
-        <h4 id="Timezone">Timezone = <span className='font-bold'>{result.timezone.name}</span></h4>
-      </div>
-    )
-    })
-  }
-{/* Weather Data API Call */}
-  {/* {
-    weatherData && weatherData.length && weatherData.map((weatherResult, i) =>{
-      return(
+      <div>
         <div key={i}>
-          <h4 id="rain">rain = <span className='font-bold'>{weatherResult.city}</span></h4>
-          <h4 id="snow">snow = <span className='font-bold'>{weatherResult.country}</span></h4>
-          <h4 id="other">other = <span className='font-bold'>{weatherResult.timezone.name}</span></h4>
+          <h4 id="city">City = <span className='font-bold'>{result.city}</span></h4>
+          <h4 id="country">Country = <span className='font-bold'>{result.country}</span></h4>
+          <h4 id="Timezone">Timezone = <span className='font-bold'>{result.timezone.name}</span></h4>
         </div>
-      )
-      }
-  } */}
+    </div>
+    )
+    
+    })}
+
+    <Weather />
+    
   <Link href="/demo">
   <a href="/demo"
       className="px-4 md:px-8 mx-auto my-4 py-2 md:py-3 text-center rounded-full bg-green-500 text-white font-bold uppercase border-green-600 border hover:bg-green-700"
