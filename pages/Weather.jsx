@@ -5,7 +5,16 @@ import React, { useEffect, useState } from 'react';
 const weather = () => {
 
   // const [location, setLocation] = useState([]); //useState hook to initialize the state to an empty array
-  const [weatherData, setWeatherData] = useState([]); //useState hook to initialize the state to an empty array
+  const [weatherData, setWeatherData] = [
+    {maxTemp: String},
+    {minTemp: String},
+    {rainfall: String},
+    {snowfall: String},
+    {sunrise: String},
+    {sunset: String},
+  
+    //  ^^^ Trying to set the values of an array of objects
+  ];
   
     const getData = async () => {
       const travelLat = "34.337306";
@@ -48,11 +57,19 @@ const weather = () => {
       var storeRainfall = avgRainfall.toFixed(2);
       var storeSnowfall = avgSnowfall.toFixed(2);
       
-      const storeWeather = [storeMaxTemp, storeMinTemp, storeRainfall, storeSnowfall, avgSunrise, avgSunset]
+      const storage = [
+        {maxTemp: storeMaxTemp}, 
+        {minTemp: storeMinTemp}, 
+        {rainfall: storeRainfall}, 
+        {snowfall: storeSnowfall}, 
+        {sunrise: avgSunrise}, 
+        {sunset: avgSunset},
+      ];
 
-      console.log(storeWeather);
-      setWeatherData(storeWeather);
+      setWeatherData(storage);
+    //    trying to set the values of an array of objects
       console.log(weatherData);
+    //   show the objects!!
     };
     
   return(
@@ -66,19 +83,19 @@ const weather = () => {
       </button>
     </div>
 
-  <div className="flex flex-col w-full m-16 xl:w-2/5 justify-center overflow-y-hidden">
+  {/* <div className="flex flex-col w-full m-16 xl:w-2/5 justify-center overflow-y-hidden">
     
-    {
-    weatherData && weatherData.length && weatherData.map((setWeatherData, i) =>{
-        return(
-            <div key={i}>
-            <h4 id="Line">{setWeatherData}</h4>
-            </div>
-        )
-        })
-    }
 
-  </div>
+            <h4 id="maxTemp">Max Temp = <span className='font-bold'>{weatherData.maxTemp}</span></h4>
+            <h4 id="minTemp">Min Temp = <span className='font-bold'>{weatherData.minTemp}</span></h4>
+            <h4 id="rainfall">Rainfall = <span className='font-bold'>{weatherData.rainfall}</span></h4>
+            <h4 id="snowfall">Snowfall = <span className='font-bold'>{weatherData.snowfall}</span></h4>
+            <h4 id="sunrise">Sunrise = <span className='font-bold'>{weatherData.sunrise}</span></h4>
+            <h4 id="sunset">Sunset = <span className='font-bold'>{weatherData.sunset}</span></h4>
+    
+// This part doesnt work yet...
+
+  </div> */}
 
     </>
   )
