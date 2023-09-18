@@ -22,7 +22,7 @@ const apiPage = () => {
     
   return(
     <>
-    <div className="w-1/2 m-16 xl:w-2/5 justify-center overflow-y-hidden">
+    {/* <div className="w-screen mx-auto my-4">
       <h1 className="text-xl">test page for API Data</h1>
 
       <h4>Click a button to test the GeoLocation API</h4> 
@@ -42,10 +42,12 @@ const apiPage = () => {
       </button>
     </div>
 
-  <div className="flex flex-col w-full m-16 xl:w-2/5 justify-center overflow-y-hidden">
+  <div className="w-screen mx-auto my-4 justify-center">
+  */}
     
 {/* Geo Data API Call */}
-  {
+
+  {/* {
     
    geoData && geoData.length && geoData.map((result, i, weatherResult, v) => {
     return(
@@ -58,10 +60,10 @@ const apiPage = () => {
     </div>
     )
     
-    })}
+    })}  */}
 
     <Weather />
-    
+{/*     
   <Link href="/demo">
   <a href="/demo"
       className="px-4 md:px-8 mx-auto my-4 py-2 md:py-3 text-center rounded-full bg-green-500 text-white font-bold uppercase border-green-600 border hover:bg-green-700"
@@ -70,7 +72,7 @@ const apiPage = () => {
       
     </a>
   </Link>
-  </div>
+  </div> */}
 
     </>
   )
