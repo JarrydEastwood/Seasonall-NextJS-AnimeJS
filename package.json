@@ -9,6 +9,9 @@
     "start": "next start",
     "export": "next build && next export"
   },
+  "engines": {
+    "node" : ">=16.0.0 <17.0.0"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
     "animejs": "^3.2.1",
