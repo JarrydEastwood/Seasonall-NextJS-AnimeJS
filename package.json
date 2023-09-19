@@ -1,6 +1,5 @@
 {
   "name": "demo-nextjs-animejs",
-  "version": "0.1.0",
   "description": "Demo NextJS-AnimeJS",
   "private": true,
   "scripts": {
@@ -10,7 +9,7 @@
     "export": "next build && next export"
   },
   "engines": {
-    "node" : ">=16.0.0 <17.0.0"
+    "node": ">=16.0.0 <17.0.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
@@ -28,4 +27,3 @@
     "tailwindcss": "^1.9.6"
   }
 }
-
